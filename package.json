@@ -1,0 +1,23 @@
+{
+  "name": "js-ecom",
+  "version": "1.0.0",
+  "description": "## 목표",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ysonbrian/js-ecom.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ysonbrian/js-ecom/issues"
+  },
+  "homepage": "https://github.com/ysonbrian/js-ecom#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

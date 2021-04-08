@@ -14,7 +14,6 @@ const router = () => {
     (request.resource ? `/${request.resource}` : '/') +
     (request.id ? '/:id' : '') +
     (request.verb ? `/${request.verb}` : '');
-  console.log(routes[parseUrl]);
   const screen = routes[parseUrl] ? routes[parseUrl] : Error404Screen;
 
   const main = document.getElementById('main-container');
