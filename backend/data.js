@@ -7,7 +7,7 @@ export default {
       image: '/images/product-1.jpeg',
       price: '58,000',
       brand: '나이크',
-      rating: 4.5,
+      rating: 4.0,
       numReviews: 10,
       countInStock: 6,
     },
@@ -18,7 +18,7 @@ export default {
       image: '/images/product-2.jpeg',
       price: '329,000',
       brand: '애쁠',
-      rating: 10,
+      rating: 4.8,
       numReviews: 44,
     },
     {
@@ -28,7 +28,7 @@ export default {
       image: '/images/product-5.jpeg',
       price: '118,000',
       brand: '아디도스 셔츠',
-      rating: 8.8,
+      rating: 4.3,
       numReviews: 32,
     },
     {
@@ -38,7 +38,7 @@ export default {
       image: '/images/product-3.jpeg',
       price: '987,900',
       brand: '쑤니',
-      rating: 8.5,
+      rating: 4.8,
       numReviews: 142,
     },
     {
@@ -48,7 +48,7 @@ export default {
       image: '/images/product-4.jpeg',
       price: '138,000',
       brand: '안경은 안경이다',
-      rating: 9.1,
+      rating: 4.9,
       numReviews: 14,
     },
     {
@@ -58,7 +58,7 @@ export default {
       image: '/images/product-6.jpeg',
       price: '690,000',
       brand: 'Delle',
-      rating: 9.5,
+      rating: 5,
       numReviews: 59,
     },
   ],
