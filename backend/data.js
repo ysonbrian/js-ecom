@@ -20,6 +20,7 @@ export default {
       brand: '애쁠',
       rating: 4.8,
       numReviews: 44,
+      countInStock: 999,
     },
     {
       _id: '3',
@@ -30,6 +31,7 @@ export default {
       brand: '아디도스 셔츠',
       rating: 4.3,
       numReviews: 32,
+      countInStock: 582,
     },
     {
       _id: '4',
@@ -40,6 +42,7 @@ export default {
       brand: '쑤니',
       rating: 4.8,
       numReviews: 142,
+      countInStock: 555,
     },
     {
       _id: '5',
@@ -50,6 +53,7 @@ export default {
       brand: '안경은 안경이다',
       rating: 4.9,
       numReviews: 14,
+      countInStock: 952,
     },
     {
       _id: '6',
@@ -60,6 +64,7 @@ export default {
       brand: 'Delle',
       rating: 5,
       numReviews: 59,
+      countInStock: 450,
     },
   ],
 };
