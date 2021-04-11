@@ -18,6 +18,7 @@ const router = async () => {
 
   const main = document.getElementById('main-container');
   main.innerHTML = await screen.render();
+  await screen.after_render();
 };
 
 window.addEventListener('load', router);
