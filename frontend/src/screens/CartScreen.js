@@ -21,6 +21,15 @@ const addToCart = (item, forceUpdate = false) => {
   }
 };
 
+const removeFromCart = (id) => {
+  setCartItems(getCartItems().filter((x) => x.product !== id));
+  if (id === parseRequestUrl().id) {
+    document.location.hash = '/cart';
+  } else {
+    rerender(CartScreen);
+  }
+};
+
 const CartScreen = {
   after_render: () => {
     const qtySelects = document.getElementsByClassName('qty-select');
@@ -29,6 +38,15 @@ const CartScreen = {
         const item = getCartItems().find((x) => x.product === qtySelect.id);
         addToCart({ ...item, qty: Number(e.target.value) }, true);
       });
+    });
+    const deleteButtons = document.getElementsByClassName('delete-button');
+    Array.from(deleteButtons).forEach((deleteButton) => {
+      deleteButton.addEventListener('click', () => {
+        removeFromCart(deleteButton.id);
+      });
+    });
+    document.getElementById('checkout-button').addEventListener('click', () => {
+      document.location.hash = './signin';
     });
   },
   render: async () => {
