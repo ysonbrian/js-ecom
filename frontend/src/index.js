@@ -2,6 +2,7 @@ import CartScreen from './screens/CartScreen';
 import Error404Screen from './screens/Error404Screen';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
+import SigninScreen from './screens/SigninScreen';
 import { parseRequestUrl } from './utils';
 
 const routes = {
@@ -9,6 +10,7 @@ const routes = {
   '/product/:id': ProductScreen,
   '/cart/:id': CartScreen,
   '/cart': CartScreen,
+  '/signin': SigninScreen,
 };
 
 const router = async () => {
