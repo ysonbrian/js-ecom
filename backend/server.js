@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 import data from './data';
 import config from './config';
 import userRouter from './routers/userRouter';
@@ -20,6 +21,7 @@ mongoose
 const app = express();
 
 app.use(cors());
+app.use(bodyParser.json());
 app.use('/api/users', userRouter);
 app.get('/api/products', (req, res) => {
   res.send(data.products);
@@ -33,6 +35,11 @@ app.get('/api/products/:id', (req, res) => {
   }
 });
 
+// 모든 에러가 이것을 통해서 이루어진다
+app.use((err, req, res, next) => {
+  const status = err.name && err.name === 'ValidationError' ? 400 : 500;
+  res.status(status).send({ message: err.message });
+});
 app.listen(5000, () => {
   console.log('Server runs at http://localhost:5000');
 });
