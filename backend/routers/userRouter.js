@@ -51,4 +51,29 @@ userRouter.post(
   })
 );
 
+userRouter.post(
+  '/register',
+  expressAsyncHandler(async (req, res) => {
+    const user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    });
+    const createdUser = await user.save();
+    if (!createdUser) {
+      res.status(401).send({
+        message: '유저의 정보가 존재 하지 않습니다',
+      });
+    } else {
+      res.send({
+        _id: createdUser._id,
+        name: createdUser.name,
+        email: createdUser.email,
+        isAdmin: createdUser.isAdmin,
+        token: generateToken(createdUser),
+      });
+    }
+  })
+);
+
 export default userRouter;
