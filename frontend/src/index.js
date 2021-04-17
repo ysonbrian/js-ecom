@@ -3,7 +3,7 @@ import Error404Screen from './screens/Error404Screen';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import SigninScreen from './screens/SigninScreen';
-import { parseRequestUrl } from './utils';
+import { hideLoading, parseRequestUrl, showLoading } from './utils';
 import Header from './components/Header';
 
 const routes = {
@@ -15,6 +15,7 @@ const routes = {
 };
 
 const router = async () => {
+  showLoading();
   const request = parseRequestUrl();
   const parseUrl =
     (request.resource ? `/${request.resource}` : '/') +
@@ -27,6 +28,7 @@ const router = async () => {
   await Header.after_render();
   main.innerHTML = await screen.render();
   await screen.after_render();
+  hideLoading();
 };
 
 window.addEventListener('load', router);
