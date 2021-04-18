@@ -11,3 +11,20 @@ export const generateToken = (user) =>
     },
     config.JWT_SECRET
   );
+
+export const isAuth = (req, res, next) => {
+  const bearerToken = req.headers.authorization;
+  if (!bearerToken) {
+    res.status(401).send({ message: '토큰이 제공 되지 않습니다' });
+  } else {
+    const token = bearerToken.slice(7, bearerToken.length);
+    jwt.verify(token, config.JWT_SECRET, (err, data) => {
+      if (err) {
+        res.status(401).send({ message: '토큰이 존재 하지 않습니다' });
+      } else {
+        req.user = data;
+        next();
+      }
+    });
+  }
+};

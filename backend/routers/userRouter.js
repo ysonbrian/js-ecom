@@ -1,7 +1,7 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import User from '../models/userModel';
-import { generateToken } from '../util';
+import { generateToken, isAuth } from '../util';
 
 const userRouter = express.Router();
 
@@ -51,6 +51,7 @@ userRouter.post(
   })
 );
 
+// 유저 생성
 userRouter.post(
   '/register',
   expressAsyncHandler(async (req, res) => {
@@ -71,6 +72,31 @@ userRouter.post(
         email: createdUser.email,
         isAdmin: createdUser.isAdmin,
         token: generateToken(createdUser),
+      });
+    }
+  })
+);
+
+userRouter.put(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(401).send({
+        message: '유저의 정보가 존재 하지 않습니다',
+      });
+    } else {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.password = req.body.password || user.password;
+      const updatedUser = await user.save();
+      res.send({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+        token: generateToken(updatedUser),
       });
     }
   })
