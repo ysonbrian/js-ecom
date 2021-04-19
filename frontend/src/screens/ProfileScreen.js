@@ -32,9 +32,6 @@ const ProfileScreen = {
     if (!name) {
       document.location.hash = '/';
     }
-    if (getUserInfo().name) {
-      document.location.hash = '/profile';
-    }
     return `
       <div class="form-container">
         <form id="profile-form">
