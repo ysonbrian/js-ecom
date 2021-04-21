@@ -1,7 +1,7 @@
 export default {
   products: [
     {
-      _id: '1',
+      _id: '111111111111111111111111',
       name: '집업 러닝 셔츠',
       category: 'Shirts',
       image: '/images/product-1.jpeg',
@@ -12,7 +12,7 @@ export default {
       countInStock: 6,
     },
     {
-      _id: '2',
+      _id: '222222222222222222222222',
       name: '에어팟 프로',
       cateogry: 'Device',
       image: '/images/product-2.jpeg',

@@ -1,9 +1,4 @@
-import {
-  cleanCart,
-  getCartItems,
-  getPayment,
-  getShipping,
-} from '../localStorage';
+import { getCartItems, getPayment, getShipping } from '../localStorage';
 import CheckoutSteps from '../components/CheckoutSteps';
 import {
   showLoading,
@@ -11,62 +6,21 @@ import {
   showMessage,
   parseRequestUrl,
 } from '../utils';
-import { createOrder } from '../api';
+import { getOrder } from '../api';
 
-const convertCartToOrder = () => {
-  const orderItems = getCartItems();
-  if (orderItems.length === 0) {
-    document.location.hash = '/cart';
-  }
-  const shipping = getShipping();
-  if (!shipping.address) {
-    document.location.hash = '/shipping';
-  }
-  const payment = getPayment();
-  if (!payment.paymentMethod) {
-    document.location.hash = '/payment';
-  }
-  const itemsPrice = orderItems.reduce((a, c) => a + c.price * c.qty, 0);
-  const shippingPrice = itemsPrice > 100 ? 0 : 10;
-  const taxPrice = Math.round(0.15 * itemsPrice * 100) / 100;
-  const totalPrice = itemsPrice + shippingPrice + taxPrice;
-  return {
-    orderItems,
-    shipping,
-    payment,
-    itemsPrice,
-    shippingPrice,
-    taxPrice,
-    totalPrice,
-  };
-};
 const PlaceOrderScreen = {
-  after_render: async () => {
-    document
-      .getElementById('placeorder-button')
-      .addEventListener('click', async () => {
-        const order = convertCartToOrder();
-        showLoading();
-        const data = await createOrder(order);
-        hideLoading();
-        if (data.error) {
-          showMessage(data.error);
-        } else {
-          cleanCart();
-          document.location.hash = `/order/${data.order._id}`;
-        }
-      });
-  },
-  render: () => {
+  after_render: () => {},
+  render: async () => {
+    const request = parseRequestUrl();
     const {
-      orderItems,
       shipping,
       payment,
+      orderItems,
       itemsPrice,
       shippingPrice,
       taxPrice,
       totalPrice,
-    } = convertCartToOrder();
+    } = await getOrder(request.id);
     return `
       <div>
         ${CheckoutSteps.render({
@@ -136,7 +90,6 @@ const PlaceOrderScreen = {
                   <div>총 주문 가격</div>
                   <div>₩${totalPrice}</div>
                 </li>
-                <button id="placeorder-button"class="primary fw"> 주문하기 </button>
           </ul>
         </div>
       </div>
