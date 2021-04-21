@@ -1,5 +1,4 @@
 import { getCartItems, getPayment, getShipping } from '../localStorage';
-import CheckoutSteps from '../components/CheckoutSteps';
 import {
   showLoading,
   hideLoading,
@@ -8,11 +7,12 @@ import {
 } from '../utils';
 import { getOrder } from '../api';
 
-const PlaceOrderScreen = {
+const OrderScreen = {
   after_render: () => {},
   render: async () => {
     const request = parseRequestUrl();
     const {
+      _id,
       shipping,
       payment,
       orderItems,
@@ -20,29 +20,38 @@ const PlaceOrderScreen = {
       shippingPrice,
       taxPrice,
       totalPrice,
+      isDeleivered,
+      deliveredAt,
+      isPaid,
+      paidAt,
     } = await getOrder(request.id);
     return `
       <div>
-        ${CheckoutSteps.render({
-          step1: true,
-          step2: true,
-          step3: true,
-          step4: true,
-        })}
+        <h1>주문번호 ${_id}</h1>
         <div class="order">
           <div class="order-info">
             <div>
-              <h2>Shipping</h2>
+              <h2>배송 주소</h2>
               <div>
                 ${shipping.address} ${shipping.city} ${shipping.postalCode}
                 ${shipping.country}
               </div>
+              ${
+                isDeleivered
+                  ? `<div class="success"> ${deliveredAt} 으로 배송 되었습니다 </div>`
+                  : `<div class="error">아직 배송 되지 않았습니다</div>`
+              }
             </div>
           <div>
             <h2>결제정보</h2>
             <div>
               결제 방식 : ${payment.paymentMethod}
             </div>
+            ${
+              isPaid
+                ? `<div class="success"> ${paidAt} 으로 결제 됐습니다 </div>`
+                : `<div class="error">미결제 상품 입니다</div> `
+            }
           </div>
           <div>
             <ul class="cart-list-container">
@@ -97,4 +106,4 @@ const PlaceOrderScreen = {
   },
 };
 
-export default PlaceOrderScreen;
+export default OrderScreen;
