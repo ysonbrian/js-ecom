@@ -36,4 +36,25 @@ orderRouter.post(
       .send({ message: '새로운 주문이 추가되었습니다', order: createdOrder });
   })
 );
+
+orderRouter.put(
+  '/:id/pay',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      order.isPaid = true;
+      order.paidAt = Date.now();
+      order.payment.paymentResult = {
+        payerID: req.body.payerID,
+        paymentID: req.body.paymentID,
+        orderID: req.body.orderID,
+      };
+      const updatedOrder = await order.save();
+      res.send({ message: '주문이 결제 되었습니다.', order: updatedOrder });
+    } else {
+      res.status(404).send({ message: '주문 상품을 확인 할 수 없습니다.' });
+    }
+  })
+);
 export default orderRouter;
