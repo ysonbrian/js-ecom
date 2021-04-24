@@ -60,7 +60,7 @@ const handlePayment = (clientId, totalPrice) => {
             paymentID: data.paymentID,
           });
           hideLoading();
-          showMessage('Payment was successfull.', () => {
+          showMessage('결제가 성공했습니다', () => {
             // eslint-disable-next-line no-use-before-define
             rerender(OrderScreen);
           });

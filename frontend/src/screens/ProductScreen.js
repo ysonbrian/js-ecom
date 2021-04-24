@@ -72,25 +72,3 @@ const ProductScreen = {
 };
 
 export default ProductScreen;
-
-/*
-
-        <div class="details-action">
-            <ul>
-              <li>
-                주문금액: ${product.price}
-              </li>
-              <li>
-                재고: ${
-                  product.countInStock > 0
-                    ? `<span class="success">재고 있음</span>`
-                    : `<span class="error" >재고 없음</span>`
-                }
-              </li>
-              <li>
-                <button id="add-button" class="fw primary">바로구매</button>
-              </li>
-            </ul>
-        </div>
-
-*/
